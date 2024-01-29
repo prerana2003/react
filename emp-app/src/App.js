@@ -1,5 +1,5 @@
 import './App.css';
-
+import Header from './components/header'
 import React, { useState } from "react"
 
 
@@ -8,8 +8,13 @@ const Parent = ()=>{
   let employees = require('./employees.json');
   const [state] = useState(employees)
 
-
   console.log(state)
+
+  return(
+    <div>
+      <Header/>
+    </div>
+  )
 }
 
 export default Parent;
