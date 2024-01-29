@@ -1,0 +1,26 @@
+{
+    "emp1":{
+        "ID" : "emp1",
+        "Name" : "Riya",
+        "Salary" : 200000,
+        "Designation" : "HR"
+    },
+    "emp2":{
+        "ID" : "emp2",
+        "Name" : "Priya",
+        "Salary" : 5000000,
+        "Designation" : "Dev"
+    },
+    "emp3":{
+        "ID" : "emp3",
+        "Name" : "Tia",
+        "Salary" : 200000,
+        "Designation" : "HR"
+    },
+    "emp4":{
+        "Name" : "Nita",
+        "ID" : "emp4",
+        "Salary" : 200000,
+        "Designation" : "HR"
+    }
+}
