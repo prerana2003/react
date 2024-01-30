@@ -1,4 +1,46 @@
+#header{
+    display: flex;
+    justify-content:space-between;
+}
 
 #logo{
-    height: 100%;
+    height: 100px;
 }
+
+#empCount{
+    margin-top: 35px;
+    margin-right: 80px;
+    color: navy;
+    font-weight: 900;
+    font-size: x-large;
+}
+
+#left{
+    min-height: 500px;
+    max-height: fit-content;
+    width: fit-content;
+    border-right: 1px solid black;
+    padding: 5px;
+}
+
+#empList{
+    list-style: none;
+}
+
+.empItem{
+    border: 2px solid white;
+    margin: 3px;
+    border-radius: 30px;
+    background-color: darkcyan;
+    font-weight: 700;
+    color: white;
+    padding: 20px 10px 20px 20px;
+    margin-left: -30px;
+    max-width: 100%; 
+}
+
+/* .empItem:hover{
+    border:2px solid darkcyan;
+    background-color: white;
+    color: darkcyan;
+} */

@@ -1,14 +1,14 @@
-import { Height } from '@mui/icons-material';
+import mainLogo from './logo.png'
+import './components.css'
 
-var mainLogo = require('./logo.png');
-
-const Header = () =>{
+const Header = ({state}) =>{
     return(
         <nav>
-            <div>
+            <div id='header'>
                 <img  src={mainLogo} id='logo' alt="fireSpot"/>
-                <label>Hello</label>
+                <label id='empCount'> Employees: {Object.keys(state).length}</label>
             </div>
+            <hr/>
         </nav>
     )
 }

@@ -1,18 +1,24 @@
 import './App.css';
 import Header from './components/header'
+import Left from './components/left'
+
 import React, { useState } from "react"
 
 
 
 const Parent = ()=>{
   let employees = require('./employees.json');
-  const [state] = useState(employees)
+  const [state,setValue] = useState({employees: employees, "EmpID" : ''})
 
-  console.log(state)
+  function empID(myID){
+    let id = myID
+    setValue({...state, "EmpID": id})
+  }
 
   return(
     <div>
-      <Header/>
+      <Header state= {state}/>
+      <Left state = {state} empID = {empID}/>
     </div>
   )
 }
