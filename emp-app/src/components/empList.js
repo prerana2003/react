@@ -10,7 +10,7 @@ const EmpItem = ({emp, empID, state}) =>{
             id= event.target.id
             backColor = "navy"
         }} 
-        style={{backgroundColor: (state.EmpID !== undefined && state.EmpID === id) ? backColor : 'darkcyan'}}
+        // style={{backgroundColor: (state.EmpID !== undefined && state.EmpID === id) ? backColor : 'darkcyan'}}
         >{emp.ID} : {emp.Name}</li>
     )
 }
@@ -21,8 +21,8 @@ const EmpList = (props) =>{
 
     let new_arr = [];
 
-    for(let x in props.state.employees){
-        new_arr.push(props.state.employees[x])
+    for(let x in props.employees){
+        new_arr.push(props.employees[x])
     }
 
     // ------------------Searching------------------------------------
@@ -31,19 +31,19 @@ const EmpList = (props) =>{
             EmpArr = []
             for(let i=0;i<new_arr.length;i++){ 
                 if(props.leftState.SearchValue === new_arr[i].Name){
-                    EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} state={props.state}/>)
+                    EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} employees={props.employees}/>)
                 }
             }
         }
         else{
             for(let i=0;i<new_arr.length;i++){ 
-                EmpArr.push(<EmpItem key= {new_arr[i].ID}  emp = {new_arr[i]} empID = {props.empID} state={props.state}/>)
+                EmpArr.push(<EmpItem key= {new_arr[i].ID}  emp = {new_arr[i]} empID = {props.empID} employees={props.employees}/>)
             }
         }
     }
     else{
         for(let i=0;i<new_arr.length;i++){ 
-            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} state={props.state}/>)
+            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} employees={props.employees}/>)
         }
     }
 
@@ -54,7 +54,7 @@ const EmpList = (props) =>{
         });
         EmpArr = []
         for(let i=0;i<new_arr.length;i++){ 
-            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} state={props.state}/>)
+            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} employees={props.employees}/>)
         }
     }
     else if(props.leftState.id === 'dsc'){
@@ -63,7 +63,7 @@ const EmpList = (props) =>{
         });
         EmpArr = []
         for(let i=0;i<new_arr.length;i++){
-            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} state={props.state}/>)
+            EmpArr.push(<EmpItem key= {new_arr[i].ID} emp = {new_arr[i]} empID = {props.empID} employees={props.employees}/>)
         }
     }
     

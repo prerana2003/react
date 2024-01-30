@@ -7,18 +7,19 @@ import React, { useState } from "react"
 
 
 const Parent = ()=>{
-  let employees = require('./employees.json');
-  const [state,setValue] = useState({employees: employees, "EmpID" : ''})
+  let employeesObj = require('./employees.json');
+  const [employees, setEmployees] = useState(employeesObj)
+  const [Emp, setValue] = useState()
 
-  function empID(myID){
-    let id = myID
-    setValue({...state, "EmpID": id})
+  function emp(emp){
+    // let id = myID
+    setValue(emp)
   }
 
   return(
     <div>
-      <Header state= {state}/>
-      <Left state = {state} empID = {empID}/>
+      <Header employees= {employees}/>
+      <Left employees = {employees} emp = {emp}/>
     </div>
   )
 }

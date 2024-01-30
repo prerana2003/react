@@ -3,7 +3,7 @@ import Toolbar from './toolbar';
 import EmpList from './empList';
 import { useState } from 'react';
 
-const Left = ({state, empID}) =>{
+const Left = ({employees, empID}) =>{
     let [leftState, setValue] = useState('')
 
     function search(myValue){
@@ -17,7 +17,7 @@ const Left = ({state, empID}) =>{
     return(
         <div id='left'>
             <Toolbar onSearch = {search} sort = {sort} leftState={leftState}/>
-            <EmpList state = {state} leftState = {leftState} empID = {empID}/>
+            <EmpList employees = {employees} leftState = {leftState} empID = {empID}/>
         </div>
     )
 }

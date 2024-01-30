@@ -39,8 +39,8 @@
     max-width: 100%; 
 }
 
-/* .empItem:hover{
+.empItem:hover{
     border:2px solid darkcyan;
     background-color: white;
     color: darkcyan;
-} */
+}
