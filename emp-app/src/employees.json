@@ -1,38 +1,40 @@
 {
-    "emp1":{
-        "ID" : "Emp1",
-        "Name" : "Riya",
-        "Salary" : 200000,
-        "Designation" : "HR"
-    },
-    "emp2":{
-        "ID" : "Emp2",
-        "Name" : "Priya",
-        "Salary" : 5000000,
-        "Designation" : "Dev"
-    },
-    "emp3":{
-        "ID" : "Emp3",
-        "Name" : "Tia",
-        "Salary" : 200000,
-        "Designation" : "HR"
-    },
-    "emp4":{
-        "Name" : "Nita",
-        "ID" : "Emp4",
-        "Salary" : 200000,
-        "Designation" : "HR"
-    },
-    "emp5":{
-        "ID" : "Emp5",
-        "Name" : "Priya",
-        "Salary" : 5000000,
-        "Designation" : "Dev"
-    },
-    "emp6":{
-        "ID" : "Emp6",
-        "Name" : "Riya",
-        "Salary" : 5000000,
-        "Designation" : "Dev"
-    }
+    "employees":[
+        {
+            "ID" : "Emp1",
+            "Name" : "Riya",
+            "Salary" : 200000,
+            "Designation" : "HR"
+        },
+        {
+            "ID" : "Emp2",
+            "Name" : "Priya",
+            "Salary" : 5000000,
+            "Designation" : "Dev"
+        },
+        {
+            "ID" : "Emp3",
+            "Name" : "Tia",
+            "Salary" : 200000,
+            "Designation" : "HR"
+        },
+        {
+            "Name" : "Nita",
+            "ID" : "Emp4",
+            ",Salary" : 200000,
+            "Designation" : "HR"
+        },
+        {
+            "ID" : "Emp5",
+            "Name" : "Priya",
+            "Salary" : 5000000,
+            "Designation" : "Dev"
+        },
+        {
+            "ID" : "Emp6",
+            "Name" : "Rima",
+            "Salary" : 5000000,
+            "Designation" : "Dev"
+        }
+    ]
 }

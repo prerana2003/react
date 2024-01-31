@@ -13,17 +13,22 @@ const Toolbar = (props) =>{
                     id = event.target.id
                     props.sort(id)
                 }} 
-                style = {{borderWidth: (props.leftState.id === "asc") ? '3px' : ''}}>Asc</button>
+                style = {{borderWidth: (props.SortBtnID === "asc") ? '3px' : ''}}>Asc</button>
 
             <button type='button' id='dsc' onClick={
                 (event)=>{
                     id = event.target.id
                     props.sort(id)
                 }} 
-                style = {{borderWidth: (props.leftState.id === "dsc") ? '3px' : ''}}>Dsc</button>
+                style = {{borderWidth: (props.SortBtnID === "dsc") ? '3px' : ''}}>Dsc</button>
 
-            <button type='button'>Del</button>
-            <button type='button'>+</button>
+            <button type='button' disabled = {(props.SelectedEmp !== undefined && props.SelectedEmp !== '') ? false : true } onClick={
+                (event) =>{
+                    props.onDeleteClick()
+                }
+            }>Del</button>
+
+            <button type='button' onClick={(event) =>{props.forShowform("AddEmpForm")}}>+</button>
             <hr/>
         </div>
     )
