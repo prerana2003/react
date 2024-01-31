@@ -21,7 +21,7 @@ const Center = (props) =>{
         form.push(
             <div>
                 <label>{formobj[i]} : </label>
-                <input type='text' placeholder={'Enter ' + formobj[i]} onChange={(event)=>{empobj[formobj[i]] = event.target.value}} ></input>
+                <input type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{empobj[formobj[i]] = event.target.value}} ></input>
             </div>
         )
     }
