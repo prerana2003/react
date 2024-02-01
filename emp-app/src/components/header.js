@@ -6,7 +6,7 @@ const Header = ({employees}) =>{
         <nav>
             <div id='header'>
                 <img  src={mainLogo} id='logo' alt="fireSpot"/>
-                <label id='empCount'> Employees: {Object.keys(employees).length}</label>
+                <label id='empCount'> Employees: {employees.length}</label>
             </div>
             <hr/>
         </nav>

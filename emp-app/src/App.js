@@ -5,31 +5,30 @@ import Center from './components/center';
 
 import React, { useState } from "react"
 
-
 const Parent = ()=>{
-  let employeesObj = {}
+  let employeesObj = require('./employees.json').employees;
   const [employees, setEmployees] = useState(employeesObj)
   const [SelectedEmp, setSelectedEmp] = useState()
   const [showForm, setForm] = useState()
-  const [empID, setempID] = useState(1)
+  const [empID, setempID] = useState(employeesObj.length+1)
 
   function getNewEmployee(empobj){
     empobj["ID"]= 'Emp'+empID
-    employees['Emp'+empID] = empobj;
+    employees.push(empobj);
     setEmployees(employees)
     console.log(employees)
     setempID(empID+1)
   }
-
+  
   function setSelectedEmpFunc(emp){
     setSelectedEmp(emp)
     setForm('')
   }
 
   function onDeleteClick(){
-    for(let x in employees){
-      if(SelectedEmp.ID === employees[x].ID){
-        delete employees[x]
+    for(let i=0;i<employees.length;i++){
+      if(SelectedEmp.ID === employees[i].ID){
+        employees.splice(i,1)
         setEmployees(employees)
         setSelectedEmp('')
       }
@@ -38,8 +37,7 @@ const Parent = ()=>{
 
   function forShowform(formName){
     setSelectedEmp('')
-    setForm(formName)
-    console.log(showForm)
+    setForm(formName) 
   }
 
 
@@ -48,7 +46,7 @@ const Parent = ()=>{
       <Header employees= {employees}/>
       <div id='mainContentDiv'>
         <Left employees = {employees} setSelectedEmp = {setSelectedEmpFunc} SelectedEmp = {SelectedEmp} onDeleteClick= {onDeleteClick} forShowform = {forShowform}/>
-        <Center SelectedEmp = {SelectedEmp} showForm = {showForm} getNewEmployee= {getNewEmployee} forShowform = {forShowform}/>
+        <Center SelectedEmp = {SelectedEmp} setSelectedEmpFunc={setSelectedEmpFunc} showForm = {showForm} getNewEmployee= {getNewEmployee} forShowform = {forShowform} />
       </div>
     </div>
   )

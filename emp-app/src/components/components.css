@@ -39,11 +39,6 @@
     max-width: 100%; 
 }
 
-.empItem:hover{
-    border:2px solid darkcyan;
-    background-color: white;
-    color: darkcyan;
-}
 
 #mainContentDiv{
     display: flex;

@@ -1,11 +1,23 @@
+import { useState } from 'react';
 import './components.css'
 
 const EmpItem = ({emp, setSelectedEmp, employees, SelectedEmp}) =>{
+    let color;
+
+    if(SelectedEmp && emp.ID === SelectedEmp.ID){
+        color = 'navy'
+    }else{
+        color = 'darkcyan'
+    }
+
+    function onClick(){
+        setSelectedEmp(emp)
+    }
     
     return(
-        <li className='empItem' id={emp.ID}
+        <li className='empItem' id={emp.ID} style={{backgroundColor: color}}
         onClick={(event) =>{
-            setSelectedEmp(emp)
+            onClick()
         }}
         >{emp.ID} : {emp.Name}</li>
         
@@ -22,22 +34,14 @@ const EmpList = (props) =>{
     }
 
     // ------------------Searching------------------------------------
-    
-    if(props.SearchValue !== undefined){
-        if(props.SearchValue.length>0){
-            CloneEmps = CloneEmps.filter(function(emp){
-                if(emp.Name.includes(props.SearchValue)){
-                    return emp;
-                }
-            })
-            for(let i=0;i<CloneEmps.length;i++){ 
-                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID}  emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
+    if(props.SearchValue){
+        CloneEmps = CloneEmps.filter(function(emp){
+            if(emp.Name.includes(props.SearchValue)){
+                return emp;
             }
-        }
-        else{
-            for(let i=0;i<CloneEmps.length;i++){ 
-                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID}  emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
-            }
+        })
+        for(let i=0;i<CloneEmps.length;i++){ 
+            EmpListArr.push(<EmpItem key= {CloneEmps[i].ID}  emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
         }
     }
     else{
