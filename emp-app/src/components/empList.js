@@ -1,21 +1,13 @@
 import { useState } from 'react';
 import './components.css'
 
-const EmpItem = ({emp, setSelectedEmp, employees, SelectedEmp}) =>{
-    let color;
-
-    if(SelectedEmp && emp.ID === SelectedEmp.ID){
-        color = 'navy'
-    }else{
-        color = 'darkcyan'
-    }
-
+const EmpItem = ({emp, setSelectedEmp, employees, selectedEmp}) =>{
     function onClick(){
         setSelectedEmp(emp)
     }
     
     return(
-        <li className='empItem' id={emp.ID} style={{backgroundColor: color}}
+        <li className='empItem' id={emp.ID} style={{backgroundColor: (selectedEmp && emp.ID === selectedEmp.ID) ? 'navy' : ''}}
         onClick={(event) =>{
             onClick()
         }}
@@ -27,49 +19,51 @@ const EmpItem = ({emp, setSelectedEmp, employees, SelectedEmp}) =>{
 const EmpList = (props) =>{
     let EmpListArr = []
 
-    let CloneEmps = [];
-
-    for(let x in props.employees){
-        CloneEmps.push(props.employees[x])
-    }
+    let CloneEmps = props.employees;
 
     // ------------------Searching------------------------------------
-    if(props.SearchValue){
-        CloneEmps = CloneEmps.filter(function(emp){
-            if(emp.Name.includes(props.SearchValue)){
-                return emp;
+    function search(){
+        if(props.SearchValue){
+            CloneEmps = CloneEmps.filter(function(emp){
+                if(emp.Name.includes(props.SearchValue)){
+                    return emp;
+                }
+            })
+            for(let i=0;i<CloneEmps.length;i++){ 
+                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID}  emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} selectedEmp = {props.selectedEmp}/>)
             }
-        })
-        for(let i=0;i<CloneEmps.length;i++){ 
-            EmpListArr.push(<EmpItem key= {CloneEmps[i].ID}  emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
         }
-    }
-    else{
-        for(let i=0;i<CloneEmps.length;i++){ 
-            EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
+        else{
+            for(let i=0;i<CloneEmps.length;i++){ 
+                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} selectedEmp = {props.selectedEmp}/>)
+            }
         }
     }
 
     // ----------------------Sorting---------------------------
-    if(props.SortBtnID === 'asc'){
-        CloneEmps.sort(function(a,b){
-            return a.Name.localeCompare(b.Name);
-        });
-        EmpListArr = []
-        for(let i=0;i<CloneEmps.length;i++){ 
-            EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
+    function sort(){
+        if(props.SortBtnID === 'asc'){
+            CloneEmps.sort(function(a,b){
+                return a.Name.localeCompare(b.Name);
+            });
+            EmpListArr = []
+            for(let i=0;i<CloneEmps.length;i++){ 
+                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} selectedEmp = {props.selectedEmp}/>)
+            }
         }
-    }
-    else if(props.SortBtnID === 'dsc'){
-        CloneEmps.sort(function(a,b){
-            return b.Name.localeCompare(a.Name);
-        });
-        EmpListArr = []
-        for(let i=0;i<CloneEmps.length;i++){
-            EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} SelectedEmp = {props.SelectedEmp}/>)
+        else if(props.SortBtnID === 'dsc'){
+            CloneEmps.sort(function(a,b){
+                return b.Name.localeCompare(a.Name);
+            });
+            EmpListArr = []
+            for(let i=0;i<CloneEmps.length;i++){
+                EmpListArr.push(<EmpItem key= {CloneEmps[i].ID} emp = {CloneEmps[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} selectedEmp = {props.selectedEmp}/>)
+            }
         }
     }
     
+    search()
+    sort()
 
     return(
         <div>

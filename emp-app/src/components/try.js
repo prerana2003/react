@@ -1,185 +1,170 @@
+import { useState } from 'react'
+import './components.css'
 
-// {(props.showForm === "updateForm") ? 
-//                     <input type='text' required placeholder={'Enter ' + props.SelectedEmp[x]} onChange={
-//                         (event)=>{
-//                             formState = {}
-//                             setFormState({...formState, [props.SelectedEmp[x]] : event.target.value})
-//                     }} ></input> 
-//                     : <label>{props.SelectedEmp[x]}</label>
-//                 }
-// onChange={(event)=>{empObj[formobj[i]] = event.target.value}}
+const AddEmpForm = (props) =>{
+    let formobj = ["Name","Salary","Designation", "Department ID"]
+    let empObj = {}
+    
+    // for(let i=0;i<formobj.length;i++){
+    //     empObj[formobj[i]] = ''
+    // }
+    if(props.selectedEmp){
+        for(let x in props.selectedEmp){
+            empObj[x] = props.selectedEmp[x]
+        }
+    }
+    
 
+    const [formState, setFormState] = useState(empObj)
+    
+    // ----------------------------Add Employee Form-----------------------------
+    let form = [];
+    function forAddEmpform(){
+        form = [];
+        for(let i=0;i<formobj.length;i++){
+            form.push(
+                <div key={formobj[i]}>
+                    <label id={formobj[i]+'lable'}>{formobj[i]} : </label>
+                    <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
+                </div>
+            )
+        }
+    }
 
+    function forUpdateEmpForm(){
+        form =[]
+        for(let x in props.selectedEmp){
+            form.push(
+                <div key={x}>
+                    <label>{x} : </label>
+                    {(x === "ID")? 
+                        <input id={x+'Input'} type='text' disabled placeholder={'Enter ' + x} value={formState? formState[x] : ''} onChange={(event)=>{{setFormState({...formState, [x] : event.target.value})}}} ></input> : 
+                        <input id={x+'Input'} type='text' required placeholder={'Enter ' + x} value={formState? formState[x] : ''} onChange={(event)=>{{setFormState({...formState, [x] : event.target.value})}}} ></input>
+                    }
+                </div>
+            )
+        }  
+        console.log(formState)
+    }
 
+    function validate(){
+        let validated;
+        for(let i=0;i<formobj.length;i++){
+            if(formState[formobj[i]]){
+                validated = true;
+            }
+            else{
+                validated = false;
+            }
+        }
+        return validated;
+    }
 
+    function onSubmit(){
+        setFormState('')
+        props.getNewEmployee(formState)
+        props.forShowform()
+    }
 
-// --------------------------------------------------------
+    function showform(){
+        if(props.showForm === "AddEmpForm"){
+            for(let i=0;i<formobj.length;i++){
+                empObj[formobj[i]] = ''
+            }
+            forAddEmpform()
+        }
+        else if(props.selectedEmp && props.showForm === "UpdateEmpForm"){
+            forUpdateEmpForm()
+        }
+    }
+    
+
+    return(
+        <div id='addEmpForm'>
+            <h1 id='formTitle'>Add Employee</h1>
+            <form>
+                {showform()}
+                {form}
+                <input id='resetBtn' type='reset'/>
+            </form>
+            <button id='submitBtn' type='submit' onClick={(event) =>{
+                    {(!validate()) ?
+                        alert("Please fill out all fields") : 
+                        onSubmit()
+                    }
+                }
+            }>Submit</button>
+            <button id='cancelBtn' type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
+        </div>
+    )
+}
+
+export default AddEmpForm;
+
+// ---------------------------------------------------
 // import { useState } from 'react'
 // import './components.css'
 
-// const Center = (props) =>{
-//     const [formState, setFormState] = useState()
-
-//     let employeeDetails = []
-
+// const AddEmpForm = (props) =>{
 //     let formobj = ["Name","Salary","Designation", "Department ID"]
-//             let form = []
-//             for(let i=0;i<formobj.length;i++){
-//                 form.push(
-//                         <div>
-//                             <label>{formobj[i]} : </label>
-//                             <input type='text' required placeholder={'Enter ' + formobj[i]} onChange={
-//                                 (event)=>{
-//                                     setFormState({...formState, [formobj[i]] : event.target.value})
-//                                 }} ></input>
-//                         </div>
-//                 )
-//             }
-
-//     // console.log(formState)
-//     function ShowInCenter(){
-//         if(props.SelectedEmp !== '' && props.SelectedEmp !== undefined && props.showForm === ""){
-//             for(let x in props.SelectedEmp){
-//                 employeeDetails.push(
-//                     <div>
-//                         <label>{x} : </label>
-//                         {console.log(props.showForm === "updateForm")}
-//                         {(props.showForm === "updateForm") ? 
-//                             <input type='text' required placeholder={'Enter ' + props.SelectedEmp[x]} onChange={
-//                                 (event)=>{
-//                                     formState = {}
-//                                     setFormState({...formState, [props.SelectedEmp[x]] : event.target.value})
-//                             }} ></input> 
-//                             : <label>{props.SelectedEmp[x]}</label>
-//                         }
-//                     </div>
-//                 )
-//             }
-//             return(
-//                 <div id='DisplayEmployee'>
-//                         {employeeDetails}
-//                         <button type='button' onClick={(event)=>{props.forShowform("updateForm")
-//                                 employeeDetails = []}}>Update</button>
-//                         <button type='button'onClick={(event)=>props.setSelectedEmpFunc()}>Cancel</button>
-//                 </div>
-//             )
-//         }
-//         else if(props.showForm !== undefined && props.showForm === "updateForm"){
-//             for(let x in props.SelectedEmp){
-//                 employeeDetails.push(
-//                     <div>
-//                         <label>{x} : </label>
-//                         {console.log(props.showForm === "updateForm")}
-//                             <input type='text' required placeholder={'Enter ' + props.SelectedEmp[x]} onChange={
-//                                 (event)=>{
-//                                     formState = {}
-//                                     setFormState({...formState, [props.SelectedEmp[x]] : event.target.value})
-//                             }} ></input> 
-//                     </div>
-//                 )
-//             }
-//             return(
-//                 <div id='DisplayEmployee'>
-//                     {employeeDetails}
-//                     <button type='submit' onClick={(event) =>{
-//                                 // {(Object.keys(formState).length < formobj.length) ?
-//                                 // alert("Please fill out all fields") : props.getNewEmployee(formState)}
-//                                 // setFormState('')
-//                     }
-//                     }>Submit</button>
-//                     <button type='button'onClick={(event)=>props.setSelectedEmpFunc()}>Cancel</button>
-//                 </div>
-//             )
-//         }
-//         else if(props.showForm !== undefined && props.showForm === "AddEmpForm"){
-//             // return(
-                
-//             // )
-//         }
-
+//     let empObj = {}
+    
+//     for(let i=0;i<formobj.length;i++){
+//         empObj[formobj[i]] = ''
 //     }
 
+//     const [formState, setFormState] = useState(empObj)
+    
+//     // ----------------------------Add Employee Form-----------------------------
+//     let form = [];
+//     function forAddEmpform(){
+//         for(let i=0;i<formobj.length;i++){
+//             form.push(
+//                 <div key={formobj[i]}>
+//                     <label id={formobj[i]+'lable'}>{formobj[i]} : </label>
+//                     <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
+//                 </div>
+//             )
+//         }
+//     }
 
+//     function validate(){
+//         let validated;
+//         for(let i=0;i<formobj.length;i++){
+//             if(formState[formobj[i]]){
+//                 validated = true;
+//             }
+//             else{
+//                 validated = false;
+//             }
+//         }
+//         return validated;
+//     }
+
+//     function afterValidationTrue(){
+//         props.getNewEmployee(formState)
+//         setFormState('')
+//         props.forShowform()
+//     }
 
 //     return(
-//         <div id='center'>
-//             <ShowInCenter/>
-//             <div id='addEmpForm'>
-//                     <h1>Add Employee</h1>
-//                     <form>
-//                         {form}
-//                         <input type='reset'/>
-//                     </form>
-//                     <button type='submit' onClick={(event) =>{
-//                             {(Object.keys(formState).length < formobj.length) ?
-//                             alert("Please fill out all fields") : props.getNewEmployee(formState)}
-//                             setFormState('')
-//                         }
-//                     }>Submit</button>
-//                     <button type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
-//             </div>
+//         <div id='addEmpForm'>
+//             <h1 id='formTitle'>Add Employee</h1>
+//             <form>
+//                 {forAddEmpform()}
+//                 {form}
+//                 <input id='resetBtn' type='reset'/>
+//             </form>
+//             <button id='submitBtn' type='submit' onClick={(event) =>{
+//                     {(!validate()) ?
+//                         alert("Please fill out all fields") : 
+//                         afterValidationTrue()
+//                     }
+//                 }
+//             }>Submit</button>
+//             <button id='cancelBtn' type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
 //         </div>
 //     )
 // }
 
-// export default Center
-
-
-
-// {/* --------------------update Employee Form----------------------- */}
-// {(props.showForm !== undefined && props.showForm === "UpdateEmpForm") ?
-                
-// <div id='updateEmp'>
-//     <h1>Update Employee</h1>
-//     <form>
-//         {form}
-//         {/* <input type='reset'/> */}
-//     </form>
-//     <button type='submit' onClick={(event) =>{
-//             {(Object.keys(formState).length < formobj.length) ?
-//             alert("Please fill out all fields") : props.getNewEmployee(formState)}
-//             setFormState('')
-//         } 
-//     }>Submit</button>
-//     <button type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
-// </div> : ''
-// }
-
-
-
-    // // -----------------------------Update Form-------------------------------
-    // for(let x in props.SelectedEmp){
-    //     form = []
-    //     form.push(
-    //             <div>
-    //                 <label>{x} : </label>
-    //                 <input type='text' required placeholder={'Enter ' + x} value={props.SelectedEmp[x]} onChange={
-    //                     (event)=>{
-    //                         setFormState({...formState, [x] : event.target.value})
-    //                     }} ></input>
-    //             </div>
-    //     )
-    // }
-
-
-
-
-
-
-
-
-    // const [color,setColor] = ;
-    
-    // function myColor(){
-        
-    // }
-
-    // function onClick(event){
-    //     if(SelectedEmp !== undefined && emp.ID !== SelectedEmp.ID){
-    //         color = 'navy';
-    //     }
-    //     else{
-    //         color = 'darkcyan'
-    //     }
-    //     setSelectedEmp(emp)
-    // }
+// export default AddEmpForm;

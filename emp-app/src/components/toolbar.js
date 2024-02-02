@@ -4,10 +4,18 @@ const Toolbar = (props) =>{
     let SearchText;
     let id;
 
+    function onAddbutton(){
+        props.setSelectedEmp('')
+        props.forShowform("AddEmpForm")
+    }
+    console.log(props.selectedEmp)
+
     return(
         <div>
-            <input type='text' placeholder='Enter text' onChange={(event)=>{SearchText = event.target.value}}/>
-            <button type='button' onClick = {(event) =>{props.onSearch(SearchText)}}>Search</button>
+            <input type='text' placeholder='Enter text' onChange={(event)=>
+                    {SearchText = event.target.value
+                    props.onSearch(SearchText)}}/>
+            {/* <button type='button' onClick = {(event) =>{props.onSearch(SearchText)}}>Search</button> */}
             <button type='button' id='asc' onClick={
                 (event)=>{
                     id = event.target.id
@@ -22,13 +30,16 @@ const Toolbar = (props) =>{
                 }} 
                 style = {{borderWidth: (props.SortBtnID === "dsc") ? '3px' : ''}}>Dsc</button>
 
-            <button type='button' disabled = {(props.SelectedEmp !== undefined && props.SelectedEmp !== '') ? false : true } onClick={
+            <button type='button' disabled = {(props.selectedEmp) ? false : true } onClick={
                 (event) =>{
                     props.onDeleteClick()
                 }
             }>Del</button>
 
-            <button type='button' onClick={(event) =>{props.forShowform("AddEmpForm")}}>+</button>
+            <button type='button' onClick={(event) =>{
+                    onAddbutton()
+                }
+                }>+</button>
             <hr/>
         </div>
     )

@@ -3,7 +3,7 @@ import Toolbar from './toolbar';
 import EmpList from './empList';
 import { useState } from 'react';
 
-const Left = ({employees, setSelectedEmp, SelectedEmp, onDeleteClick, forShowform}) =>{
+const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, forShowform}) =>{
     let [SearchValue, setSearchValue] = useState('')
     let [SortBtnID, setBtnID] = useState('')
 
@@ -18,8 +18,8 @@ const Left = ({employees, setSelectedEmp, SelectedEmp, onDeleteClick, forShowfor
 
     return(
         <div id='left'>
-            <Toolbar onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} SelectedEmp = {SelectedEmp} onDeleteClick = {onDeleteClick} forShowform = {forShowform}/>
-            <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} SelectedEmp={SelectedEmp}/>
+            <Toolbar onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} forShowform = {forShowform}/>
+            <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
         </div>
     )
 }
