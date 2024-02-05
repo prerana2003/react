@@ -62,7 +62,7 @@ const AddEmpForm = (props) =>{
 
     function onSubmit(){
         setFormState('')
-        props.getNewEmployee(formState)
+        props.addEmployee(formState)
         props.forShowform()
     }
 
@@ -142,7 +142,7 @@ export default AddEmpForm;
 //     }
 
 //     function afterValidationTrue(){
-//         props.getNewEmployee(formState)
+//         props.addEmployee(formState)
 //         setFormState('')
 //         props.forShowform()
 //     }

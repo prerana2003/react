@@ -9,7 +9,8 @@ const DisplayEmployeeDetails = (props) =>{
                 employeeDetails.push(
                     <div key={x}>
                         <label>{x} : </label>
-                        <label>{props.selectedEmp[x]}</label>
+                        {(x !== "address" && x !== "company") ? <label>{props.selectedEmp[x]}</label> : ""}
+                        
                     </div>
                 )
             }   
@@ -19,11 +20,12 @@ const DisplayEmployeeDetails = (props) =>{
             <div id='DisplayEmployee'>
                 {DisplayComponent()}
                 {employeeDetails}
-                <button id='updateBtn' type='button' onClick={(event) =>{props.forShowform("UpdateEmpForm")}}>Update</button>
-                <button id='cancelBtn' type='button'onClick={(event)=>props.setSelectedEmpFunc()}>Cancel</button>
+                <button id='updateBtn' type='button' onClick={() => {props.setShowform("UpdateEmpForm");}}>Update</button>
+                <button id='cancelBtn' type='button'onClick={(event)=>props.setSelectedEmp()}>Cancel</button>
             </div>
     )
 }
 
 export default DisplayEmployeeDetails;
 
+// props.onSetFormState();

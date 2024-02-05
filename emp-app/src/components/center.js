@@ -7,12 +7,12 @@ const Center = (props) =>{
         <div id='center'>
             {/* ---------------Display Employee------------------------ */}
             {(props.selectedEmp) ? 
-                <DisplayEmployeeDetails selectedEmp = {props.selectedEmp} setSelectedEmpFunc = {props.setSelectedEmpFunc} forShowform = {props.forShowform}/> : ''
+                <DisplayEmployeeDetails onSetFormState = {props.onSetFormState} selectedEmp = {props.selectedEmp} setSelectedEmp = {props.setSelectedEmp} setShowform = {props.setShowform}/> : ''
             }
 
             {/* ---------------------Add Employee Form--------------------- */}
             {(props.showForm) ?
-                <AddEmpForm selectedEmp = {props.selectedEmp} setSelectedEmpFunc = {props.setSelectedEmpFunc} getNewEmployee = {props.getNewEmployee} forShowform = {props.forShowform} showForm = {props.showForm}/> : ''
+                <AddEmpForm employees = {props.employees} onSetFormState = {props.onSetFormState} formState = {props.formState} selectedEmp = {props.selectedEmp} setSelectedEmp = {props.setSelectedEmp} addEmployee = {props.addEmployee} setShowform = {props.setShowform} showForm = {props.showForm}/> : ''
             }
         </div>
     )

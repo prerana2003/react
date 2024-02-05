@@ -3,40 +3,71 @@ import Header from './components/header'
 import Left from './components/left'
 import Center from './components/center';
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const Parent = ()=>{
-  let employeesObj = require('./employees.json').employees;
-  const [employees, setEmployees] = useState(employeesObj)
+  // let employeesObj = require('./employees.json').employees;
+  const [employees, setEmployees] = useState([])
   const [selectedEmp, setSelectedEmployee] = useState()
   const [showForm, setForm] = useState()
+  
+  
 
+  // useEffect(() => {
+  //   fetch('https://jsonplaceholder.typicode.com/users')
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setEmployees(data);
+  //     })
+  //     .catch(() =>{
+  //       console.error("404 - Error Occured")
+  //     })
+  // }, []);
 
-  function getNewEmployee(empobj){
-    empobj["ID"]= 'Emp'+(employeesObj.length+1)
+  useEffect(() =>{
+    async function fetchAPI(){
+      try{
+        const response= await fetch('https://jsonplaceholder.typicode.com/users')
+        const result = await response.json();
+        setEmployees(result)
+      }
+      catch{
+        console.log("404-Not Founds")
+      }
+    }
+    fetchAPI()
+  },[])
+  
 
-    // TODO-clone
-    employees.push(empobj);
-    setEmployees(employees)
-    console.log(employees)
+  let cloneEmp = []
+  if(employees){
+     cloneEmp= [...employees]
+  }
+
+  function addEmployee(empobj){
+    empobj["id"]= (employees.length+1)
+    cloneEmp.push(empobj);
+    setEmployees(cloneEmp)
   }
   
-  function setSelectedEmpFunc(emp){
+  function setSelectedEmp(emp){
     setSelectedEmployee(emp)
     setForm('')
   }
 
   function onDeleteClick(){
     for(let i=0;i<employees.length;i++){
-      if(selectedEmp.ID === employees[i].ID){
-        employees.splice(i,1)
-        setEmployees(employees)
+      if(selectedEmp["id"] === employees[i]["id"]){
+        cloneEmp.splice(i,1)
+        setEmployees(cloneEmp)
         setSelectedEmployee('')
       }
     }
   }
 
-  function forShowform(formName){
+  function setShowform(formName){
     if(formName === "AddEmpForm"){
       setSelectedEmployee('')
     }
@@ -48,8 +79,8 @@ const Parent = ()=>{
     <div>
       <Header employees= {employees}/>
       <div id='mainContentDiv'>
-        <Left employees = {employees} setSelectedEmp = {setSelectedEmpFunc} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} forShowform = {forShowform}/>
-        <Center selectedEmp = {selectedEmp} setSelectedEmpFunc={setSelectedEmpFunc} showForm = {showForm} getNewEmployee= {getNewEmployee} forShowform = {forShowform} />
+        <Left employees = {employees} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} setShowform = {setShowform}/>
+        <Center employees = {employees} selectedEmp = {selectedEmp} setSelectedEmp={setSelectedEmp} showForm = {showForm} addEmployee= {addEmployee} setShowform = {setShowform} />
       </div>
     </div>
   )

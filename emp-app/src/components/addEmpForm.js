@@ -2,7 +2,13 @@ import { useState } from 'react'
 import './components.css'
 
 const AddEmpForm = (props) =>{
-    let formobj = ["Name","Salary","Designation", "Department ID"]
+    let formobj = []
+    for(let i=0;i<Object.keys(props.employees[0]).length;i++){
+        if(Object.keys(props.employees[0])[i] !== "id" && Object.keys(props.employees[0])[i] !== "address" && Object.keys(props.employees[0])[i] !== "company"){
+            formobj.push(Object.keys(props.employees[0])[i])
+        }
+    }
+
     let empObj = {}
     
     for(let i=0;i<formobj.length;i++){
@@ -38,9 +44,9 @@ const AddEmpForm = (props) =>{
     }
 
     function afterValidationTrue(){
-        props.getNewEmployee(formState)
+        props.addEmployee(formState)
         setFormState('')
-        props.forShowform()
+        props.setShowform()
     }
 
     return(
@@ -58,7 +64,7 @@ const AddEmpForm = (props) =>{
                     }
                 }
             }>Submit</button>
-            <button id='cancelBtn' type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
+            <button id='cancelBtn' type='button'onClick={(event)=>props.setShowform()}>Cancel</button>
         </div>
     )
 }

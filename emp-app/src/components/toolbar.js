@@ -5,17 +5,15 @@ const Toolbar = (props) =>{
     let id;
 
     function onAddbutton(){
-        props.setSelectedEmp('')
-        props.forShowform("AddEmpForm")
+        props.setShowform("AddEmpForm");
+        props.onSetFormState();
     }
-    console.log(props.selectedEmp)
 
     return(
         <div>
             <input type='text' placeholder='Enter text' onChange={(event)=>
                     {SearchText = event.target.value
                     props.onSearch(SearchText)}}/>
-            {/* <button type='button' onClick = {(event) =>{props.onSearch(SearchText)}}>Search</button> */}
             <button type='button' id='asc' onClick={
                 (event)=>{
                     id = event.target.id
@@ -36,10 +34,7 @@ const Toolbar = (props) =>{
                 }
             }>Del</button>
 
-            <button type='button' onClick={(event) =>{
-                    onAddbutton()
-                }
-                }>+</button>
+            <button type='button' onClick={() => {props.setShowform("AddEmpForm");}}>+</button>
             <hr/>
         </div>
     )
