@@ -9,9 +9,7 @@ const Parent = ()=>{
   // let employeesObj = require('./employees.json').employees;
   const [employees, setEmployees] = useState([])
   const [selectedEmp, setSelectedEmployee] = useState()
-  const [showForm, setForm] = useState()
-  
-  
+  const [showForm, setForm] = useState("")
 
   // useEffect(() => {
   //   fetch('https://jsonplaceholder.typicode.com/users')
@@ -25,6 +23,18 @@ const Parent = ()=>{
   //       console.error("404 - Error Occured")
   //     })
   // }, []);
+
+  // const myPromise = new Promise((resolved, rejected)=>{
+  //   const emps = fetch('https://jsonplaceholder.typicode.com/users')
+  //   function resolved(){
+  //     console.log("success")
+  //   }
+  //   function rejected(){
+  //     console.error("Error")
+  //   }
+  // })
+
+  // myPromise.then
 
   useEffect(() =>{
     async function fetchAPI(){
@@ -47,9 +57,20 @@ const Parent = ()=>{
   }
 
   function addEmployee(empobj){
-    empobj["id"]= (employees.length+1)
-    cloneEmp.push(empobj);
-    setEmployees(cloneEmp)
+    if(showForm === "AddEmpForm"){
+      empobj["id"]= (employees.length+1)
+      cloneEmp.push(empobj);
+      setEmployees(cloneEmp)
+    }
+    else if(showForm === "UpdateEmpForm"){
+      for(let i=0;i<cloneEmp.length;i++){
+        if(cloneEmp[i]["id"] === selectedEmp["id"]){
+          cloneEmp[i]= empobj
+        }
+        console.log(cloneEmp)
+        setEmployees(cloneEmp)
+      }
+    }
   }
   
   function setSelectedEmp(emp){
@@ -71,8 +92,7 @@ const Parent = ()=>{
     if(formName === "AddEmpForm"){
       setSelectedEmployee('')
     }
-    setForm(formName)
-     
+    setForm(formName) 
   }
 
   return(

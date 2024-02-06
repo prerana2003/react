@@ -2,169 +2,68 @@ import { useState } from 'react'
 import './components.css'
 
 const AddEmpForm = (props) =>{
-    let formobj = ["Name","Salary","Designation", "Department ID"]
-    let empObj = {}
-    
-    // for(let i=0;i<formobj.length;i++){
-    //     empObj[formobj[i]] = ''
-    // }
-    if(props.selectedEmp){
-        for(let x in props.selectedEmp){
-            empObj[x] = props.selectedEmp[x]
+    const [error,setError] = useState()
+
+    let formobj = []
+    for(let i=0;i<Object.keys(props.employees[0]).length;i++){
+        if(Object.keys(props.employees[0])[i] !== "id" && Object.keys(props.employees[0])[i] !== "address" && Object.keys(props.employees[0])[i] !== "company"){
+            formobj.push(Object.keys(props.employees[0])[i])
         }
     }
+
+    let empObj = {}
     
+    for(let i=0;i<formobj.length;i++){
+        empObj[formobj[i]] = ''
+    }
 
     const [formState, setFormState] = useState(empObj)
     
     // ----------------------------Add Employee Form-----------------------------
     let form = [];
     function forAddEmpform(){
-        form = [];
         for(let i=0;i<formobj.length;i++){
             form.push(
                 <div key={formobj[i]}>
-                    <label id={formobj[i]+'lable'}>{formobj[i]} : </label>
+                    <label id={formobj[i]+'lable'}>{formobj[i].charAt(0).toUpperCase()+formobj[i].slice(1)} : </label>
                     <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
+                    {(!formState[formobj[i]]) ? <lable style = {{color:'red'}}> {error}</lable> : ''}
                 </div>
             )
         }
     }
 
-    function forUpdateEmpForm(){
-        form =[]
-        for(let x in props.selectedEmp){
-            form.push(
-                <div key={x}>
-                    <label>{x} : </label>
-                    {(x === "ID")? 
-                        <input id={x+'Input'} type='text' disabled placeholder={'Enter ' + x} value={formState? formState[x] : ''} onChange={(event)=>{{setFormState({...formState, [x] : event.target.value})}}} ></input> : 
-                        <input id={x+'Input'} type='text' required placeholder={'Enter ' + x} value={formState? formState[x] : ''} onChange={(event)=>{{setFormState({...formState, [x] : event.target.value})}}} ></input>
-                    }
-                </div>
-            )
-        }  
-        console.log(formState)
-    }
-
     function validate(){
-        let validated;
+        let validated =true
         for(let i=0;i<formobj.length;i++){
-            if(formState[formobj[i]]){
-                validated = true;
-            }
-            else{
+            if(!formState[formobj[i]]){
                 validated = false;
             }
         }
         return validated;
     }
 
-    function onSubmit(){
-        setFormState('')
+    function afterValidationTrue(){
         props.addEmployee(formState)
-        props.forShowform()
+        setFormState('')
+        props.setShowform()
     }
-
-    function showform(){
-        if(props.showForm === "AddEmpForm"){
-            for(let i=0;i<formobj.length;i++){
-                empObj[formobj[i]] = ''
-            }
-            forAddEmpform()
-        }
-        else if(props.selectedEmp && props.showForm === "UpdateEmpForm"){
-            forUpdateEmpForm()
-        }
-    }
-    
 
     return(
         <div id='addEmpForm'>
             <h1 id='formTitle'>Add Employee</h1>
             <form>
-                {showform()}
+                {forAddEmpform()}
                 {form}
-                <input id='resetBtn' type='reset'/>
+                <button id='resetBtn' type='reset' onClick={() => {setError(''); setFormState('')}}>Reset</button>
             </form>
             <button id='submitBtn' type='submit' onClick={(event) =>{
-                    {(!validate()) ?
-                        alert("Please fill out all fields") : 
-                        onSubmit()
-                    }
-                }
-            }>Submit</button>
-            <button id='cancelBtn' type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
+                    {(validate()) ?
+                        afterValidationTrue() : setError("Please fill out this field!")
+                    }}}>Submit</button>
+            <button id='cancelBtn' type='button'onClick={(event)=>props.setShowform()}>Cancel</button>
         </div>
     )
 }
 
 export default AddEmpForm;
-
-// ---------------------------------------------------
-// import { useState } from 'react'
-// import './components.css'
-
-// const AddEmpForm = (props) =>{
-//     let formobj = ["Name","Salary","Designation", "Department ID"]
-//     let empObj = {}
-    
-//     for(let i=0;i<formobj.length;i++){
-//         empObj[formobj[i]] = ''
-//     }
-
-//     const [formState, setFormState] = useState(empObj)
-    
-//     // ----------------------------Add Employee Form-----------------------------
-//     let form = [];
-//     function forAddEmpform(){
-//         for(let i=0;i<formobj.length;i++){
-//             form.push(
-//                 <div key={formobj[i]}>
-//                     <label id={formobj[i]+'lable'}>{formobj[i]} : </label>
-//                     <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
-//                 </div>
-//             )
-//         }
-//     }
-
-//     function validate(){
-//         let validated;
-//         for(let i=0;i<formobj.length;i++){
-//             if(formState[formobj[i]]){
-//                 validated = true;
-//             }
-//             else{
-//                 validated = false;
-//             }
-//         }
-//         return validated;
-//     }
-
-//     function afterValidationTrue(){
-//         props.addEmployee(formState)
-//         setFormState('')
-//         props.forShowform()
-//     }
-
-//     return(
-//         <div id='addEmpForm'>
-//             <h1 id='formTitle'>Add Employee</h1>
-//             <form>
-//                 {forAddEmpform()}
-//                 {form}
-//                 <input id='resetBtn' type='reset'/>
-//             </form>
-//             <button id='submitBtn' type='submit' onClick={(event) =>{
-//                     {(!validate()) ?
-//                         alert("Please fill out all fields") : 
-//                         afterValidationTrue()
-//                     }
-//                 }
-//             }>Submit</button>
-//             <button id='cancelBtn' type='button'onClick={(event)=>props.forShowform()}>Cancel</button>
-//         </div>
-//     )
-// }
-
-// export default AddEmpForm;

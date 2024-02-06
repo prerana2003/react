@@ -3,7 +3,6 @@ import './components.css'
 
 const EmpItem = ({emp, setSelectedEmp, employees, selectedEmp}) =>{
     function onClick(){
-        console.log(emp)
         setSelectedEmp(emp)
     }
     
