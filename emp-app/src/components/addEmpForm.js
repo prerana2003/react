@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import './components.css'
+import { Box, Button, Card, FormGroup, Grid, Typography } from '@mui/material'
+import {TextField} from '@mui/material'
+import {FormLabel} from '@mui/material'
 
 const AddEmpForm = ({employees,selectedEmp,showForm,addEmployee,setShowform}) =>{
-    // const [error,setError] = useState()
     let error
     let formobj = []
     for(let i=0;i<Object.keys(employees[0]).length;i++){
@@ -38,14 +40,17 @@ const AddEmpForm = ({employees,selectedEmp,showForm,addEmployee,setShowform}) =>
     function createform(){
         for(let i=0;i<formobj.length;i++){
             form.push(
-                <div key={formobj[i]}>
-                    <label id={formobj[i]+'lable'}>{formobj[i].charAt(0).toUpperCase()+formobj[i].slice(1)} : </label>
-                    {(showForm === "AddEmpForm")? 
-                        <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
-                    :   <input id={formobj[i]+'Input'} type='text' required placeholder={'Enter ' + formobj[i]} value={(formState) ? formState[formobj[i]] : ''} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}} ></input>
-                    }
-                    {/* {(!formState[formobj[i]]) ? <lable style = {{co lor:'red'}}> {error}</lable> : ''} */}
-                </div>
+                <Grid direction='row' key={formobj[i]} sx={{display:'grid'}}>
+                    <Grid sx={{width: 80, minWidth: 'fit-content'}}>
+                        <FormLabel sx={{gridColumnStart:'1', gridColumnEnd:'2', fontSize:13}}>{formobj[i].charAt(0).toUpperCase()+formobj[i].slice(1)}</FormLabel>
+                    </Grid>
+                    <Grid>
+                        {(showForm === "AddEmpForm")? 
+                            <TextField sx={{gridColumnStart:'3', gridColumnEnd:'5'}} required placeholder={'Enter ' + formobj[i]} style={{marginBottom:'5px'}} size='small' onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}}/>
+                        :   <TextField required placeholder={'Enter ' + formobj[i]} style={{marginBottom:'5px'}} size='small' value={formState[formobj[i]]} onChange={(event)=>{{setFormState({...formState, [formobj[i]] : event.target.value})}}}/>
+                        }
+                    </Grid>
+                </Grid>
             )
         }
     }
@@ -67,25 +72,24 @@ const AddEmpForm = ({employees,selectedEmp,showForm,addEmployee,setShowform}) =>
     }
 
     return(
-        <div id='addEmpForm'>
-            {(showForm === "AddEmpForm")? <h1 id='formTitle'>Add Employee</h1> : <h1 id='formTitle'>Update Employee</h1>}
+        <Card id='addEmpForm' sx={{padding:'25px', paddingTop:'0px'}}>
+            {(showForm === "AddEmpForm")? <Typography fontSize='x-large' color='white' bgcolor='navy' padding='10px' marginTop='15px'>Add Employee</Typography> : <h1 id='formTitle'>Update Employee</h1>}
             <form>
-                {createform()}
-                {form}
-                <button id='submitBtn' type='submit' onClick={(event) =>{
-                    {(validate()) ?
-                        afterValidationTrue() : error = "error"
-                    }}
-                }>Submit</button>
-                <button id='resetBtn' type='reset' onClick={() => { setFormState('')}}>Reset</button>
-                {/* setError(''); */}
+                <Grid container direction='column' justifyContent='space-around' alignItems='center'>
+                    {createform()}
+                    {form}
+                    <Grid>
+                        <Button variant='contained' id='submitBtn' type='submit' onClick={(event) =>{
+                            {(validate()) ?
+                                afterValidationTrue() : error = "error"
+                            }}
+                        } sx={{backgroundColor:'green', margin:'5px'}}>Submit</Button>
+                        <Button sx={{margin:'5px'}} variant='contained' id='resetBtn' type='reset' onClick={() => { setFormState('')}}>Reset</Button>
+                        <Button sx={{backgroundColor:'red', margin:'5px'}} variant='contained' id='cancelBtn' type='button'onClick={(event)=>setShowform()}>Cancel</Button>
+                    </Grid>
+                </Grid>
             </form>
-            {/* <button id='submitBtn' type='submit' onClick={(event) =>{
-                    {(validate()) ?
-                        afterValidationTrue() : setError("Please fill out this field!")
-                    }}}>Submit</button> */}
-            <button id='cancelBtn' type='button'onClick={(event)=>setShowform()}>Cancel</button>
-        </div>
+        </Card>
     )
 }
 

@@ -1,4 +1,6 @@
 import './components.css'
+import { Box,Button, Card, FormLabel, Grid, Typography } from '@mui/material'
+// import Button from '@mui/material'
 
 
 const DisplayEmployeeDetails = (props) =>{
@@ -7,22 +9,23 @@ const DisplayEmployeeDetails = (props) =>{
     const DisplayComponent = () =>{
             for(let x in props.selectedEmp){
                 employeeDetails.push(
-                    <div key={x}>
-                        <label>{x} : </label>
-                        {(x !== "address" && x !== "company") ? <label>{props.selectedEmp[x]}</label> : ""}
+                    <Grid key={x} display='flex' flexDirection='row'>
+
+                        <FormLabel >{x} : </FormLabel>
+                        {(x !== "address" && x !== "company") ? <Typography>{props.selectedEmp[x]}</Typography> : ""}
                         
-                    </div>
+                    </Grid>
                 )
             }   
     }
 
     return(
-            <div id='DisplayEmployee'>
+            <Card id='DisplayEmployee' sx={{padding:'25px'}}>
                 {DisplayComponent()}
                 {employeeDetails}
-                <button id='updateBtn' type='button' onClick={() => {props.setShowform("UpdateEmpForm");}}>Update</button>
-                <button id='cancelBtn' type='button'onClick={(event)=>props.setSelectedEmp()}>Cancel</button>
-            </div>
+                <Button variant='outlined' id='updateBtn' type='button' onClick={() => {props.setShowform("UpdateEmpForm");}}>Update</Button>
+                <Button variant='outlined' id='cancelBtn' type='button'onClick={(event)=>props.setSelectedEmp()}>Cancel</Button>
+            </Card>
     )
 }
 

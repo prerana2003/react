@@ -1,5 +1,12 @@
-// import { useState } from 'react';
 import './components.css'
+import { List } from '@mui/material'
+import {ListItem} from '@mui/material'
+import {ListItemText} from '@mui/material'
+import {Typography} from '@mui/material'
+import {ListItemAvatar} from '@mui/material'
+import {Avatar} from '@mui/material'
+import {Box} from '@mui/material'
+import React from 'react'
 
 const EmpItem = ({emp, setSelectedEmp, employees, selectedEmp}) =>{
     function onClick(){
@@ -7,11 +14,36 @@ const EmpItem = ({emp, setSelectedEmp, employees, selectedEmp}) =>{
     }
     
     return(
-        <li className='empItem' id={emp['id']} style={{backgroundColor: (selectedEmp && emp['id'] === selectedEmp['id']) ? 'navy' : ''}}
-        onClick={(event) =>{
-            onClick()
-        }}
-        >{emp['id']} : {emp["name"]}</li> 
+        <ListItem alignItems="flex-start" component= "li" onClick={onClick} id={emp['id']} style={{backgroundColor: (selectedEmp && emp['id'] === selectedEmp['id']) ? 'navy' : 'darkcyan', color:'white'}} sx={{width:'95%', margin:"5px", borderRadius:"35px"}}>
+            <ListItemAvatar>
+                <Avatar alt="Remy Sharp">{emp['name'].charAt(0)}</Avatar>
+            </ListItemAvatar>
+            <ListItemText
+            primary={
+                <React.Fragment>
+                <Typography
+                    sx={{ display: 'inline', alignItems:'center', fontSize:15}}
+                    component="label"
+                    id={emp['id']}
+                >
+                    {emp["name"]}
+                </Typography>
+                </React.Fragment>
+            }
+            secondary={
+                <React.Fragment>
+                    <Typography
+                        sx={{ display: 'inline', alignItems:'center', fontSize:12, color:'white'}}
+                        component="label"
+                        id={emp['id']}
+                        style={{backgroundColor: (selectedEmp && emp['id'] === selectedEmp['id']) ? 'navy' : ''}}
+                    >
+                        EmployeeID: {emp['id']}
+                    </Typography>
+                </React.Fragment>
+            }
+            />
+      </ListItem>
     )
 }
 
@@ -67,9 +99,7 @@ const EmpList = (props) =>{
     sort()
 
     return(
-        <div>
-            <ul id='empList'>{EmpListArr}</ul>
-        </div>
+        <List sx={{overflow: 'auto', maxHeight: 460, overflow:'auto'}}>{EmpListArr}</List>
     )
 }
 

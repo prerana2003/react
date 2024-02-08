@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/header'
 import Left from './components/left'
 import Center from './components/center';
+import { Box } from '@mui/material';
 
 import React, { useEffect, useState } from "react"
 
@@ -41,6 +42,7 @@ const Parent = ()=>{
       try{
         const response= await fetch('https://jsonplaceholder.typicode.com/users')
         const result = await response.json();
+        // console.log(result)
         setEmployees(result)
       }
       catch{
@@ -96,13 +98,13 @@ const Parent = ()=>{
   }
 
   return(
-    <div>
+    <Box>
       <Header employees= {employees}/>
-      <div id='mainContentDiv'>
+      <Box sx={{display:'flex', position:'relative', maxHeight:"70%"}}>
         <Left employees = {employees} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} setShowform = {setShowform}/>
         <Center employees = {employees} selectedEmp = {selectedEmp} setSelectedEmp={setSelectedEmp} showForm = {showForm} addEmployee= {addEmployee} setShowform = {setShowform} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
