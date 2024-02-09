@@ -1,8 +1,8 @@
 import './App.css';
 import Header from './components/header'
-import Left from './components/left'
 import Center from './components/center';
-import { Box } from '@mui/material';
+import {Grid} from '@mui/material';
+import MyDrawer from './components/Drawer';
 
 import React, { useEffect, useState } from "react"
 
@@ -98,155 +98,26 @@ const Parent = ()=>{
   }
 
   return(
-    <Box>
-      <Header employees= {employees}/>
-      <Box sx={{display:'flex', position:'relative', maxHeight:"70%"}}>
-        <Left employees = {employees} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} setShowform = {setShowform}/>
-        <Center employees = {employees} selectedEmp = {selectedEmp} setSelectedEmp={setSelectedEmp} showForm = {showForm} addEmployee= {addEmployee} setShowform = {setShowform} />
-      </Box>
-    </Box>
+    <Grid container alignItems='center'>
+
+      <Grid item xs={12}>
+        <Header employees = {employees} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} setShowform = {setShowform}/>
+      </Grid>
+
+      <Grid container sx={{maxHeight:"70%"}}>
+
+        <Grid item xs={12} sm={6} md={4} lg={3} sx={{padding:'5px'}}>
+          <MyDrawer employees = {employees} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick= {onDeleteClick} setShowform = {setShowform}/>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={8} lg={9}>
+          <Center employees = {employees} selectedEmp = {selectedEmp} setSelectedEmp={setSelectedEmp} showForm = {showForm} addEmployee= {addEmployee} setShowform = {setShowform} />
+        </Grid>
+
+      </Grid>
+
+    </Grid>
   )
 }
 
 export default Parent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const Header = () =>{
-//   return(
-//     <div id="root">
-//       <nav>
-//         <img src="logo.jpg" />
-//         <label>Employee Count: </label>
-//         <hr />
-//       </nav>
-//     </div>
-//   )
-// }
-
-// const ToolBar = () =>{
-//   return(
-//     <div>
-//       <input type= "text" placeholder='Enter your text'></input>
-//       <button type='submit'>Submit</button>
-//       <button type='button'>Asc</button>
-//       <button type='button'>Des</button>
-//       <button type='button'>Delete</button>
-//     </div>
-//   )
-// }
-
-// const EmpList = ({state}) =>{
-//   let value;
-//   function list(){
-//     for(let i=0;i<{state}.employees.length;i++){
-
-//     }
-//   }
-//   return(
-//     {
-//       // list();
-//     }
-//   )
-// }
-
-// const EmpItem = () =>{
-
-//   return(
-//     <div>
-//       <label>{value}</label>
-//     </div>
-//   )
-// }
-
-// const Left = ({state}) =>{
-//   return(
-//     <div>
-//       <ToolBar/>
-//     </div>
-//   )
-// }
-
-// const Center = () =>{
-//   return(
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// // const Parent = () =>{
-  
-
-// //  return(
-// //   <div>
-// //     <Header />
-// //   </div>
-  
-// //  )
-// // }
-
-// const Parent = () =>{
-//   const [value, setState] = useState(
-//     {employees : [
-//       {
-//         ID : "emp1",
-//         Name : "Riya",
-//         Salary : 200000,
-//         Designation : "HR"
-//       },
-//       {
-//         ID : "emp2",
-//         Name : "Priya",
-//         Salary : 5000000,
-//         Designation : "Dev"
-//       },
-//       {
-//         ID : "emp3",
-//         Name : "Tia",
-//         Salary : 200000,
-//         Designation : "HR"
-//       },
-//       {
-//         ID : "emp4",
-//         Name : "Nita",
-//         Salary : 200000,
-//         Designation : "HR"
-//       }
-//     ]})
-
-//     console.log(state)
-
-//   return(
-//     <div>
-//       <Header />
-//       <Left state = {state} />
-//       <Center />
-//     </div>
-//   )
-// }
-
-// export default Parent;

@@ -1,4 +1,4 @@
-#header{
+/* #header{
     display: flex;
     justify-content:space-between;
 }
@@ -35,7 +35,6 @@
     font-weight: 700;
     color: white;
     padding: 20px 10px 20px 20px;
-    /* margin-left: -30px; */
     max-width: 100%; 
 }
 
@@ -53,4 +52,4 @@
     width: 69%;
     border-radius: 15px;
     background-color: rgb(184, 204, 204);
-}
+} */

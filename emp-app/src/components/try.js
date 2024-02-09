@@ -132,11 +132,47 @@
 //   })
 
 
+// import './components.css'
+// import Toolbar from './toolbar';
+// import EmpList from './empList';
+// import { useState } from 'react';
+// import { Box } from '@mui/material';
+
+// const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, setShowform, onSetFormState}) =>{
+//     let [SearchValue, setSearchValue] = useState('')
+//     let [SortBtnID, setBtnID] = useState('')
+
+
+//     function onSearch(myValue){
+//         setSearchValue(myValue)
+//     }
+
+//     function sort(btn_ID){
+//         setBtnID(btn_ID)
+//     }
+
+//     return(
+//         <Box sx={{maxHeight:'500', padding:'7px', margin:'10px 5px', position:'relative', display:'block', borderRight:'1px solid black'}}>
+//             <Toolbar onSetFormState = {onSetFormState} onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} setShowform = {setShowform}/>
+//             <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
+//         </Box>
+//     )
+// }
+
+// export default Left;
+
+
+
+
+
+// -------------------------------------------------------------
 import './components.css'
-import Toolbar from './toolbar';
+import ToolBar from './toolbar';
 import EmpList from './empList';
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { Drawer, Grid } from '@mui/material';
+import {Toolbar} from '@mui/material';
+
 
 const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, setShowform, onSetFormState}) =>{
     let [SearchValue, setSearchValue] = useState('')
@@ -152,10 +188,18 @@ const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, setShowfor
     }
 
     return(
-        <Box sx={{maxHeight:'500', padding:'7px', margin:'10px 5px', position:'relative', display:'block', borderRight:'1px solid black'}}>
-            <Toolbar onSetFormState = {onSetFormState} onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} setShowform = {setShowform}/>
-            <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
-        </Box>
+        <Drawer variant="permanent" overflow='none' style={{width: '100%', zIndex: 1, position:'relative'}}>
+            <Toolbar />
+            <Grid container direction='column' position='sticky' id='left' marginTop='30px'>
+                <Grid item>
+                    <ToolBar onSetFormState = {onSetFormState} onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} setShowform = {setShowform}/>
+                </Grid>
+                
+                <Grid item height='73vh' overflow='auto'>
+                    <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
+                </Grid>
+            </Grid>
+        </Drawer>
     )
 }
 

@@ -1,23 +1,23 @@
 import './components.css'
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Button} from '@mui/material';
+import {Button, Grid} from '@mui/material';
 import {Input} from '@mui/material';
 import {InputAdornment} from '@mui/material';
 import { GridSearchIcon } from '@mui/x-data-grid';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-const Toolbar = (props) =>{
+const ToolBar = (props) =>{
     let SearchText;
     let id;
 
     return(
-        <Box sx={{ margin:"10px", position:'sticky', display:'flex', flexDirection:'row'}}>
+        <Grid container justifyContent='space-evenly' sx={{ margin:"10px 0", padding:'0 5px', position:'sticky'}}>
             
             <Input onChange={(event)=>{SearchText = event.target.value; props.onSearch(SearchText)}}
                 id="input-with-icon-adornment"
                 placeholder='Search...'
-                sx={{width:150, margin:'3px'}}
+                sx={{width:130, margin:'3px'}}
                 startAdornment={<InputAdornment position="start"><GridSearchIcon /></InputAdornment>}/>
 
             <Button variant='outlined' id='asc' onClick={(event)=>{id = event.target.id; props.sort(event.target.id)}} 
@@ -33,8 +33,8 @@ const Toolbar = (props) =>{
 
             <Button variant='outlined' onClick={() => {props.setShowform("AddEmpForm");}} sx={{minWidth:0, margin:'3px', padding:'3px'}}><PersonAddIcon/></Button>
             
-        </Box>
+        </Grid>
     )
 }
 
-export default Toolbar;
+export default ToolBar;

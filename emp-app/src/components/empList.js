@@ -5,10 +5,9 @@ import {ListItemText} from '@mui/material'
 import {Typography} from '@mui/material'
 import {ListItemAvatar} from '@mui/material'
 import {Avatar} from '@mui/material'
-import {Box} from '@mui/material'
 import React from 'react'
 
-const EmpItem = ({emp, setSelectedEmp, employees, selectedEmp}) =>{
+const EmpItem = ({emp, setSelectedEmp, selectedEmp}) =>{
     function onClick(){
         setSelectedEmp(emp)
     }
@@ -58,8 +57,6 @@ const EmpList = (props) =>{
                 EmpListArr.push(<EmpItem key= {employees[i]["id"]}  emp = {employees[i]} setSelectedEmp = {props.setSelectedEmp} employees={props.employees} selectedEmp = {props.selectedEmp}/>)
             }
         }
-
-        
     }
 
     // ------------------Searching------------------------------------
@@ -99,7 +96,7 @@ const EmpList = (props) =>{
     sort()
 
     return(
-        <List sx={{overflow: 'auto', maxHeight: 460, overflow:'auto'}}>{EmpListArr}</List>
+        <List sx={{overflow: 'auto', maxHeight: 'fit-content', overflow:'auto'}}>{EmpListArr}</List>
     )
 }
 

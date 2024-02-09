@@ -1,13 +1,13 @@
 import './components.css'
-import Toolbar from './toolbar';
+import ToolBar from './toolbar';
 import EmpList from './empList';
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import {Grid } from '@mui/material';
+
 
 const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, setShowform, onSetFormState}) =>{
     let [SearchValue, setSearchValue] = useState('')
     let [SortBtnID, setBtnID] = useState('')
-
 
     function onSearch(myValue){
         setSearchValue(myValue)
@@ -18,10 +18,15 @@ const Left = ({employees, setSelectedEmp, selectedEmp, onDeleteClick, setShowfor
     }
 
     return(
-        <Box id='left'>
-            <Toolbar onSetFormState = {onSetFormState} onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} setShowform = {setShowform}/>
-            <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
-        </Box>
+        <Grid container direction='column' height='100%' position='sticky' id='left' marginTop='30px'>
+            <Grid item >
+                <ToolBar onSetFormState = {onSetFormState} onSearch = {onSearch} sort = {sort} SortBtnID = {SortBtnID} SearchValue={SearchValue} setSelectedEmp = {setSelectedEmp} selectedEmp = {selectedEmp} onDeleteClick = {onDeleteClick} setShowform = {setShowform}/>
+            </Grid>
+                
+            <Grid item height='73vh' overflow='auto'>
+                <EmpList employees = {employees} SearchValue = {SearchValue} SortBtnID = {SortBtnID} setSelectedEmp = {setSelectedEmp} selectedEmp={selectedEmp}/>
+            </Grid>
+        </Grid>
     )
 }
 
